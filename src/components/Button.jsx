@@ -1,10 +1,15 @@
 import React from "react";
 
-const Button = ({ children, ...othersProps }) => {
-    const primaryCls =
-        "p-3 m-2 w-[100px] rounded bg-stone-500 font-bold cursor-pointer";
+import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
+
+const Button = ({ children, addCls = "", ...othersProps }) => {
+    const baseCls =
+        "p-3 m-2 w-[100px] bg-stone-300 rounded font-bold cursor-pointer";
+
+    const finalCls = twMerge(clsx(baseCls, addCls));
     return (
-        <button {...othersProps} className={primaryCls}>
+        <button {...othersProps} className={finalCls}>
             {children}
         </button>
     );

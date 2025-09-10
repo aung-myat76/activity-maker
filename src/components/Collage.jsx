@@ -114,21 +114,26 @@ const Collage = () => {
     const finalCls = clsx(baseCls, selectedLayout.layout);
 
     return (
-        <div className="flex flex-col items-center justify-center gap-4">
-            <div>
+        <div className="flex flex-col items-center justify-center gap-3">
+            <div className="flex items-center justify-center flex-wrap">
                 <Button onClick={() => setTotalImage("one")}>1</Button>
                 <Button onClick={() => setTotalImage("two")}>2</Button>
                 <Button onClick={() => setTotalImage("three")}>3</Button>
                 <Button onClick={() => setTotalImage("fourth")}>4</Button>
                 <Button onClick={() => changeLayout()}>Change</Button>
                 <Button onClick={() => handleAddTitle()}>Title</Button>
-                <Button onClick={handleImgDownload}>Download</Button>
+                <Button
+                    onClick={handleImgDownload}
+                    addCls="bg-blue-700 text-white"
+                >
+                    Download
+                </Button>
             </div>
             <div ref={imgRef} className="bg-white p-2">
                 <div>
                     {addHeader ? (
                         <input
-                            className="my-3 w-[100%] border-b-2 font-bold text-xl border-stone-900 focus:outline-none"
+                            className="my-3 w-[100%] border-b-2 font-bold text-md border-stone-900 focus:outline-none"
                             onChange={(e) => setTitle(e.target.value)}
                             value={title}
                         />

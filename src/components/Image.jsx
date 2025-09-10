@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 const Image = ({ col, label }) => {
     const [image, setImage] = useState(null);
-    const baseCls = "bg-stone-300 relative min-h-[40vh]";
+    const baseCls = "bg-stone-300 relative min-h-[20vh]";
     const baseBadge =
         "text-white text-xs font-bold rounded-sm absolute top-1 left-1 px-[.3rem] py-[.2rem] z-100";
 
@@ -60,7 +60,7 @@ const Image = ({ col, label }) => {
                     className="hidden w-[100%] object-cover overflow-hidden"
                 />
                 {image && (
-                    <div className="size-full">
+                    <div className="size-full overflow-hidden">
                         <img
                             src={image}
                             alt="preview"
