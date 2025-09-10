@@ -80,7 +80,7 @@ const Collage = () => {
     const [addHeader, setAddHeader] = useState(false);
     const [title, setTitle] = useState("Title");
 
-    const baseCls = `bg-stone-900 relative grid gap-1 w-[80vw] min-h-[40vh] overflow-hidden`;
+    const baseCls = `bg-white relative grid gap-1 w-[80vw] min-h-[40vh] overflow-hidden`;
     const selectedLayout = settingRef.current.find((l) => l.id === totalImages);
 
     const handleImgDownload = async () => {
