@@ -133,7 +133,7 @@ const Collage = () => {
                 <div>
                     {addHeader ? (
                         <input
-                            className="my-3 w-[100%] border-b-2 font-bold text-md border-stone-900 focus:outline-none"
+                            className="my-3 text-center w-[100%] border-b-2 font-bold text-sm border-stone-900 focus:outline-none"
                             onChange={(e) => setTitle(e.target.value)}
                             value={title}
                         />
