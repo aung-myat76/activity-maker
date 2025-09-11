@@ -15,13 +15,13 @@ const Collage = () => {
             layout: "grid-cols-1",
             default: [
                 {
-                    col: "col-span-full",
+                    col: "col-span-full h-[60vh]",
                     label: null,
                 },
             ],
             changed: [
                 {
-                    col: "col-span-full",
+                    col: "col-span-full h-[60vh]",
                     label: null,
                 },
             ],
@@ -36,8 +36,8 @@ const Collage = () => {
             ],
 
             changed: [
-                { col: "col-span-1", label: "Before" },
-                { col: "col-span-1", label: "After" },
+                { col: "col-span-1 h-[60vh]", label: "Before" },
+                { col: "col-span-1 h-[60vh]", label: "After" },
             ],
         },
         {
@@ -59,18 +59,18 @@ const Collage = () => {
         {
             id: "fourth",
             number: 4,
-            layout: "grid-cols-3",
+            layout: "grid-cols-2",
             default: [
-                { col: "col-span-full", label: "After" },
-                { col: "col-span-1", label: "Before" },
+                { col: "col-span-1", label: "After" },
                 { col: "col-span-1", label: null },
+                { col: "col-span-1", label: "Before" },
                 { col: "col-span-1", label: null },
             ],
             changed: [
                 { col: "col-span-1", label: "Before" },
                 { col: "col-span-1", label: null },
+                { col: "col-span-1", label: "After" },
                 { col: "col-span-1", label: null },
-                { col: "col-span-full", label: "After" },
             ],
         },
     ]);
