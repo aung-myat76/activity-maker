@@ -5,6 +5,7 @@ import { toPng } from "html-to-image";
 
 import Image from "./Image";
 import Button from "./Button";
+import Modal from "./Modal";
 
 const Collage = () => {
     const settingRef = useRef([
@@ -78,15 +79,18 @@ const Collage = () => {
     const [totalImages, setTotalImage] = useState("two");
     const [onChange, setOnChange] = useState(false);
     const [addHeader, setAddHeader] = useState(false);
+    const [showBeforeAndAfter, setShowBeforeAndAfter] = useState(true);
+    const [isDownloading, setIsDownloading] = useState(false);
     const [title, setTitle] = useState("Title");
 
-    const baseCls = `bg-white relative grid gap-1 w-[80vw] min-h-[40vh] overflow-hidden`;
+    const baseCls = `bg-white relative grid gap-1 w-[90vw] min-h-[30vh] overflow-hidden`;
     const selectedLayout = settingRef.current.find((l) => l.id === totalImages);
 
     const handleImgDownload = async () => {
         if (imgRef.current === null) return;
 
         try {
+            setIsDownloading(true);
             const dataUrl = await toPng(imgRef.current);
 
             const link = document.createElement("a");
@@ -94,6 +98,7 @@ const Collage = () => {
             link.href = dataUrl;
 
             link.click();
+            setIsDownloading(false);
         } catch (err) {
             console.log("Can't download the image");
         }
@@ -111,36 +116,63 @@ const Collage = () => {
         });
     };
 
+    const handleNew = () => {
+        setOnChange((preState) => !preState);
+        setTitle("Title");
+        setTotalImage("two");
+        setShowBeforeAndAfter(true);
+        setIsDownloading(false);
+    };
+
+    const handleBeforeAndAfer = () => {
+        setShowBeforeAndAfter((preState) => !preState);
+    };
+
     const finalCls = clsx(baseCls, selectedLayout.layout);
 
     return (
-        <div className="flex flex-col items-center justify-center gap-3">
-            <div className="flex items-center justify-center flex-wrap">
-                <Button onClick={() => setTotalImage("one")}>1</Button>
-                <Button onClick={() => setTotalImage("two")}>2</Button>
-                <Button onClick={() => setTotalImage("three")}>3</Button>
-                <Button onClick={() => setTotalImage("fourth")}>4</Button>
-                <Button onClick={() => changeLayout()}>Change</Button>
-                <Button onClick={() => handleAddTitle()}>Title</Button>
-                <Button
-                    onClick={handleImgDownload}
-                    addCls="bg-blue-700 text-white"
-                >
-                    Download
-                </Button>
-            </div>
-            <div ref={imgRef} className="bg-white p-2">
-                <div>
-                    {addHeader ? (
-                        <input
-                            className="my-3 text-center w-[100%] border-b-2 font-bold text-sm border-stone-900 focus:outline-none"
-                            onChange={(e) => setTitle(e.target.value)}
-                            value={title}
-                        />
-                    ) : null}
+        <>
+            <div className="flex flex-col items-center justify-center gap-3">
+                <div className="flex items-center justify-center flex-wrap">
+                    <Button onClick={() => setTotalImage("one")}>1</Button>
+                    <Button onClick={() => setTotalImage("two")}>2</Button>
+                    <Button onClick={() => setTotalImage("three")}>3</Button>
+                    <Button onClick={() => setTotalImage("fourth")}>4</Button>
+                    <Button onClick={() => handleAddTitle()}>Title</Button>
+                    <Button onClick={() => handleBeforeAndAfer()}>B & A</Button>
+                    <Button
+                        onClick={() => changeLayout()}
+                        addCls="bg-yellow-600 text-white"
+                    >
+                        Change
+                    </Button>
+                    {/* <Button
+                        onClick={() => handleNew()}
+                        addCls="bg-green-600 text-white"
+                    >
+                        New
+                    </Button> */}
+                    <Button
+                        onClick={handleImgDownload}
+                        addCls="bg-blue-600 text-white"
+                        disabled={isDownloading}
+                    >
+                        {isDownloading ? "Saving" : "Save"}
+                    </Button>
                 </div>
-                <ul className={finalCls}>
-                    {/* {addBadges && (
+
+                <div ref={imgRef} className="bg-white p-2">
+                    <div>
+                        {addHeader ? (
+                            <input
+                                className="my-3 text-center w-[100%] border-b-2 font-bold text-sm border-stone-900 focus:outline-none"
+                                onChange={(e) => setTitle(e.target.value)}
+                                value={title}
+                            />
+                        ) : null}
+                    </div>
+                    <ul className={finalCls}>
+                        {/* {addBadges && (
                     <>
                         {reverseBadges && (
                             <>
@@ -165,17 +197,28 @@ const Collage = () => {
                     </>
                 )} */}
 
-                    {!onChange &&
-                        selectedLayout["default"].map((cls, i) => (
-                            <Image key={i} col={cls.col} label={cls.label} />
-                        ))}
-                    {onChange &&
-                        selectedLayout["changed"].map((cls, i) => (
-                            <Image key={i} col={cls.col} label={cls.label} />
-                        ))}
-                </ul>
+                        {!onChange &&
+                            selectedLayout["default"].map((cls, i) => (
+                                <Image
+                                    key={i}
+                                    col={cls.col}
+                                    label={cls.label}
+                                    showBeforeAndAfter={showBeforeAndAfter}
+                                />
+                            ))}
+                        {onChange &&
+                            selectedLayout["changed"].map((cls, i) => (
+                                <Image
+                                    key={i}
+                                    col={cls.col}
+                                    label={cls.label}
+                                    showBeforeAndAfter={showBeforeAndAfter}
+                                />
+                            ))}
+                    </ul>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

@@ -2,9 +2,10 @@ import React, { useState, useEffect, useCallback } from "react";
 
 import clsx from "clsx";
 
-const Image = ({ col, label }) => {
+const Image = React.memo(({ col, label, showBeforeAndAfter }) => {
     const [image, setImage] = useState(null);
-    const baseCls = "bg-stone-300 relative min-h-[20vh]";
+    const baseCls =
+        "bg-stone-300 relative min-h-[30vh] disabled:bg-stone-500 disabled:opacity-30";
     const baseBadge =
         "text-white text-xs font-bold rounded-sm absolute top-1 left-1 px-[.3rem] py-[.2rem] z-100";
 
@@ -27,10 +28,10 @@ const Image = ({ col, label }) => {
 
     return (
         <li className={finalCls}>
-            {label === "Before" && (
+            {showBeforeAndAfter && label === "Before" && (
                 <div className={clsx(baseBadge, "bg-red-600")}>Before</div>
             )}
-            {label === "After" && (
+            {showBeforeAndAfter && label === "After" && (
                 <div className={clsx(baseBadge, "bg-green-600")}>After</div>
             )}
             {/* <ImageUploading
@@ -71,6 +72,6 @@ const Image = ({ col, label }) => {
             </div>
         </li>
     );
-};
+});
 
 export default Image;
