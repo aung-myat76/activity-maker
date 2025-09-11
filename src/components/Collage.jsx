@@ -15,13 +15,13 @@ const Collage = () => {
             layout: "grid-cols-1",
             default: [
                 {
-                    col: "col-span-full h-[60vh]",
+                    col: "col-span-full h-[40vh]",
                     label: null,
                 },
             ],
             changed: [
                 {
-                    col: "col-span-full h-[60vh]",
+                    col: "col-span-full h-[40vh]",
                     label: null,
                 },
             ],
@@ -36,8 +36,8 @@ const Collage = () => {
             ],
 
             changed: [
-                { col: "col-span-1 h-[60vh]", label: "Before" },
-                { col: "col-span-1 h-[60vh]", label: "After" },
+                { col: "col-span-1 h-[45vh]", label: "Before" },
+                { col: "col-span-1 h-[45vh]", label: "After" },
             ],
         },
         {
