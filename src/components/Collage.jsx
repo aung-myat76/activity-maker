@@ -31,8 +31,8 @@ const Collage = () => {
             number: 2,
             layout: "grid-cols-2",
             default: [
-                { col: "col-span-full", label: "Before" },
-                { col: "col-span-full", label: "After" },
+                { col: "col-span-full max-h-[30vh]", label: "Before" },
+                { col: "col-span-full max-h-[30vh]", label: "After" },
             ],
 
             changed: [
@@ -45,7 +45,7 @@ const Collage = () => {
             number: 3,
             layout: "grid-cols-2",
             default: [
-                { col: "col-span-full", label: "After" },
+                { col: "col-span-full max-h-[30vh]", label: "After" },
                 { col: "col-span-1", label: "Before" },
                 { col: "col-span-1", label: null },
             ],
@@ -53,7 +53,7 @@ const Collage = () => {
             changed: [
                 { col: "col-span-1", label: "Before" },
                 { col: "col-span-1", label: null },
-                { col: "col-span-full", label: "After" },
+                { col: "col-span-full max-h-[30vh]", label: "After" },
             ],
         },
         {
@@ -133,32 +133,42 @@ const Collage = () => {
     return (
         <>
             <div className="flex flex-col items-center justify-center gap-3">
-                <div className="flex items-center justify-center flex-wrap">
-                    <Button onClick={() => setTotalImage("one")}>1</Button>
-                    <Button onClick={() => setTotalImage("two")}>2</Button>
-                    <Button onClick={() => setTotalImage("three")}>3</Button>
-                    <Button onClick={() => setTotalImage("fourth")}>4</Button>
-                    <Button onClick={() => handleAddTitle()}>Title</Button>
-                    <Button onClick={() => handleBeforeAndAfer()}>B & A</Button>
-                    <Button
-                        onClick={() => changeLayout()}
-                        addCls="bg-yellow-600 text-white"
-                    >
-                        Change
-                    </Button>
-                    {/* <Button
+                <div className="flex flex-col items-center justify-center flex-wrap">
+                    <div className="three-items">
+                        <Button onClick={() => setTotalImage("one")}>1</Button>
+                        <Button onClick={() => setTotalImage("two")}>2</Button>
+                        <Button onClick={() => setTotalImage("three")}>
+                            3
+                        </Button>
+                        <Button onClick={() => setTotalImage("fourth")}>
+                            4
+                        </Button>
+                    </div>
+                    <div className="three-items">
+                        <Button onClick={() => handleAddTitle()}>Title</Button>
+                        <Button onClick={() => handleBeforeAndAfer()}>
+                            B & A
+                        </Button>
+                        <Button
+                            onClick={() => changeLayout()}
+                            addCls="bg-yellow-600 text-white"
+                        >
+                            Change
+                        </Button>
+                        {/* <Button
                         onClick={() => handleNew()}
                         addCls="bg-green-600 text-white"
                     >
                         New
                     </Button> */}
-                    <Button
-                        onClick={handleImgDownload}
-                        addCls="bg-blue-600 text-white"
-                        disabled={isDownloading}
-                    >
-                        {isDownloading ? "Saving" : "Save"}
-                    </Button>
+                        <Button
+                            onClick={handleImgDownload}
+                            addCls="bg-blue-600 text-white"
+                            disabled={isDownloading}
+                        >
+                            {isDownloading ? "Saving" : "Save"}
+                        </Button>
+                    </div>
                 </div>
 
                 <div ref={imgRef} className="bg-white p-2">
