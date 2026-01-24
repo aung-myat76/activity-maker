@@ -91,7 +91,18 @@ const Collage = () => {
 
         try {
             setIsDownloading(true);
-            const dataUrl = await toPng(imgRef.current);
+
+            const dataUrl = await toPng(imgRef.current, {
+                filter: (node) => {
+                    if (
+                        node.classList &&
+                        node.classList.contains("moveable-control-box")
+                    ) {
+                        return false;
+                    }
+                    return true;
+                }
+            });
 
             const link = document.createElement("a");
             link.download = "activity.png";
@@ -132,7 +143,8 @@ const Collage = () => {
 
     return (
         <>
-            <div className="flex flex-col items-center justify-center gap-3z">
+            <div className="flex flex-col items-center justify-center gap-3">
+                {" "}
                 <div className="flex flex-col items-center justify-center flex-wrap">
                     <div className="three-items">
                         <Button onClick={() => setTotalImage("one")}>1</Button>
@@ -168,7 +180,6 @@ const Collage = () => {
                         </Button>
                     </div>
                 </div>
-
                 <div ref={imgRef} className="bg-white p-2">
                     <div>
                         {addHeader ? (
