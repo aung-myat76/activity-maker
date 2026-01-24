@@ -1,9 +1,12 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import Draggable from "react-draggable";
+import Moveable from "react-moveable";
 
 import clsx from "clsx";
 
 const Image = React.memo(({ col, label, showBeforeAndAfter }) => {
     const [image, setImage] = useState(null);
+    const imageRef = useRef(null);
     const baseCls =
         "bg-stone-300 relative min-h-[30vh] disabled:bg-stone-500 disabled:opacity-30";
     const baseBadge =
@@ -48,11 +51,10 @@ const Image = React.memo(({ col, label, showBeforeAndAfter }) => {
                     </div>
                 )}
             </ImageUploading> */}
-            <div className="min-w-[100%] relative size-full">
+            <div className="min-w-[100%] relative size-full editor-frame">
                 <label
                     htmlFor={currentInput}
-                    className="absolute inset-0"
-                ></label>
+                    className="absolute inset-0"></label>
                 <input
                     type="file"
                     id={currentInput}
@@ -64,8 +66,27 @@ const Image = React.memo(({ col, label, showBeforeAndAfter }) => {
                     <div className="size-full overflow-hidden">
                         <img
                             src={image}
+                            ref={imageRef}
                             alt="preview"
                             className="object-cover size-full"
+                            draggable="false"
+                        />
+                        <Moveable
+                            target={imageRef}
+                            draggable={true}
+                            resizable={true}
+                            rotatable={true}
+                            onDrag={({ target, transform }) => {
+                                target.style.transform = transform;
+                            }}
+                            onResize={({ target, width, height, drag }) => {
+                                target.style.width = width + "px";
+                                target.style.height = height + "px";
+                                target.style.transform = drag.transform;
+                            }}
+                            onRotate={(target, transform) => {
+                                target.style.transform = transform;
+                            }}
                         />
                     </div>
                 )}

@@ -16,15 +16,15 @@ const Collage = () => {
             default: [
                 {
                     col: "col-span-full h-[40vh]",
-                    label: null,
-                },
+                    label: null
+                }
             ],
             changed: [
                 {
                     col: "col-span-full h-[40vh]",
-                    label: null,
-                },
-            ],
+                    label: null
+                }
+            ]
         },
         {
             id: "two",
@@ -32,13 +32,13 @@ const Collage = () => {
             layout: "grid-cols-2",
             default: [
                 { col: "col-span-full max-h-[30vh]", label: "Before" },
-                { col: "col-span-full max-h-[30vh]", label: "After" },
+                { col: "col-span-full max-h-[30vh]", label: "After" }
             ],
 
             changed: [
                 { col: "col-span-1 h-[45vh]", label: "Before" },
-                { col: "col-span-1 h-[45vh]", label: "After" },
-            ],
+                { col: "col-span-1 h-[45vh]", label: "After" }
+            ]
         },
         {
             id: "three",
@@ -47,14 +47,14 @@ const Collage = () => {
             default: [
                 { col: "col-span-full max-h-[30vh]", label: "After" },
                 { col: "col-span-1", label: "Before" },
-                { col: "col-span-1", label: null },
+                { col: "col-span-1", label: null }
             ],
 
             changed: [
                 { col: "col-span-1", label: "Before" },
                 { col: "col-span-1", label: null },
-                { col: "col-span-full max-h-[30vh]", label: "After" },
-            ],
+                { col: "col-span-full max-h-[30vh]", label: "After" }
+            ]
         },
         {
             id: "fourth",
@@ -64,15 +64,15 @@ const Collage = () => {
                 { col: "col-span-1", label: "After" },
                 { col: "col-span-1", label: null },
                 { col: "col-span-1", label: "Before" },
-                { col: "col-span-1", label: null },
+                { col: "col-span-1", label: null }
             ],
             changed: [
                 { col: "col-span-1", label: "Before" },
                 { col: "col-span-1", label: null },
                 { col: "col-span-1", label: "After" },
-                { col: "col-span-1", label: null },
-            ],
-        },
+                { col: "col-span-1", label: null }
+            ]
+        }
     ]);
 
     const imgRef = useRef(null);
@@ -132,7 +132,7 @@ const Collage = () => {
 
     return (
         <>
-            <div className="flex flex-col items-center justify-center gap-3">
+            <div className="flex flex-col items-center justify-center gap-3z">
                 <div className="flex flex-col items-center justify-center flex-wrap">
                     <div className="three-items">
                         <Button onClick={() => setTotalImage("one")}>1</Button>
@@ -151,8 +151,7 @@ const Collage = () => {
                         </Button>
                         <Button
                             onClick={() => changeLayout()}
-                            addCls="bg-yellow-600 text-white"
-                        >
+                            addCls="bg-yellow-600 text-white">
                             Change
                         </Button>
                         {/* <Button
@@ -164,8 +163,7 @@ const Collage = () => {
                         <Button
                             onClick={handleImgDownload}
                             addCls="bg-blue-600 text-white"
-                            disabled={isDownloading}
-                        >
+                            disabled={isDownloading}>
                             {isDownloading ? "Saving" : "Save"}
                         </Button>
                     </div>
