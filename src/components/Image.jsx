@@ -63,7 +63,7 @@ const Image = React.memo(({ col, label, showBeforeAndAfter }) => {
                         />
                         <Moveable
                             target={imageRef}
-                            container={document.querySelector(".root")}
+                            container={document.body}
                             pinchOutside={true}
                             pinchable={true}
                             draggable={true}
@@ -79,6 +79,9 @@ const Image = React.memo(({ col, label, showBeforeAndAfter }) => {
                                 target.style.transform = drag.transform;
                             }}
                             onRotate={({ target, transform }) => {
+                                target.style.transform = transform;
+                            }}
+                            onPinch={({ target, transform }) => {
                                 target.style.transform = transform;
                             }}
                         />
