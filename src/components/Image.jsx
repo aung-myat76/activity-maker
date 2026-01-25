@@ -58,7 +58,7 @@ const Image = React.memo(({ col, label, showBeforeAndAfter }) => {
                             src={image}
                             ref={imageRef}
                             alt="preview"
-                            className="object-cover object-center size-full  cursor-move z-0"
+                            className="object-cover object-center size-full  cursor-move z-0 touch-none"
                             onClick={() => setSelectedTarget(imageRef.current)}
                         />
                         <Moveable
