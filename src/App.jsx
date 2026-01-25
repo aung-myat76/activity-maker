@@ -1,10 +1,10 @@
-import React, { useRef, useState } from "react";
-
 import Collage from "./components/Collage";
+import Actions from "./components/Actions";
 
 const App = () => {
     return (
         <div>
+            <Actions />
             <Collage />
         </div>
     );

@@ -1,14 +1,15 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import Draggable from "react-draggable";
+import React, { useState, useCallback, useRef } from "react";
 import Moveable from "react-moveable";
 
 import clsx from "clsx";
 
 const Image = React.memo(({ col, label, showBeforeAndAfter }) => {
     const [image, setImage] = useState(null);
+    const [selectedTarget, setSelectedTarget] = useState(null);
     const imageRef = useRef(null);
+    const imageContainerRef = useRef(null);
     const baseCls =
-        "bg-stone-300 relative min-h-[30vh] disabled:bg-stone-500 disabled:opacity-30";
+        "bg-stone-300 overflow-hidden  relative disabled:bg-stone-500 disabled:opacity-30 min-h-[25vh]";
     const baseBadge =
         "text-white text-xs font-bold rounded-sm absolute top-1 left-1 px-[.3rem] py-[.2rem] z-100";
 
@@ -16,7 +17,6 @@ const Image = React.memo(({ col, label, showBeforeAndAfter }) => {
     const currentInput = Math.random();
 
     const handleImagePick = useCallback((e) => {
-        console.log(e);
         const file = e.target.files[0];
 
         if (file) {
@@ -37,21 +37,8 @@ const Image = React.memo(({ col, label, showBeforeAndAfter }) => {
             {showBeforeAndAfter && label === "After" && (
                 <div className={clsx(baseBadge, "bg-green-600")}>After</div>
             )}
-            {/* <ImageUploading
-                value={image}
-                onChange={handleImagePicker}
-                dataURLKey="data_url"
-            >
-                {(image, onImageUpload, onImageUpdate) => (
-                    <div
-                        className="bg-red-700 upload__image-wrapper w-[100%] h-[100%]"
-                        onClick={onImageUpload}
-                    >
-                        <img src={image["data_url"]} alt="image" width="" />
-                    </div>
-                )}
-            </ImageUploading> */}
-            <div className="min-w-[100%] relative size-full editor-frame">
+
+            <div className="size-full">
                 <label
                     htmlFor={currentInput}
                     className="absolute inset-0"></label>
@@ -60,22 +47,29 @@ const Image = React.memo(({ col, label, showBeforeAndAfter }) => {
                     id={currentInput}
                     accept="*"
                     onChange={(e) => handleImagePick(e)}
-                    className="hidden w-[100%] object-cover overflow-hidden"
+                    className="hidden object-cover"
                 />
                 {image && (
-                    <div className="size-full overflow-hidden">
+                    <div
+                        ref={imageContainerRef}
+                        id="image-container"
+                        className="relative size-full">
                         <img
                             src={image}
                             ref={imageRef}
                             alt="preview"
-                            className="object-cover size-full"
-                            draggable="false"
+                            className="object-cover object-center size-full  cursor-move z-0"
+                            onClick={() => setSelectedTarget(imageRef.current)}
                         />
                         <Moveable
                             target={imageRef}
+                            container={document.querySelector(".root")}
+                            pinchOutside={true}
+                            pinchable={true}
                             draggable={true}
                             resizable={true}
                             rotatable={true}
+                            snappable={true}
                             onDrag={({ target, transform }) => {
                                 target.style.transform = transform;
                             }}
@@ -84,7 +78,7 @@ const Image = React.memo(({ col, label, showBeforeAndAfter }) => {
                                 target.style.height = height + "px";
                                 target.style.transform = drag.transform;
                             }}
-                            onRotate={(target, transform) => {
+                            onRotate={({ target, transform }) => {
                                 target.style.transform = transform;
                             }}
                         />
