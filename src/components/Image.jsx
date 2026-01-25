@@ -73,6 +73,8 @@ const Image = React.memo(({ col, label, showBeforeAndAfter }) => {
                             resizable={true}
                             rotatable={true}
                             snappable={true}
+                            preventClickDefault={true}
+                            pinchThreshold={20}
                             onDrag={({ target, transform }) => {
                                 target.style.transform = transform;
                             }}
