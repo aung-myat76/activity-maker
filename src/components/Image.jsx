@@ -11,7 +11,7 @@ const Image = React.memo(({ col, label, showBeforeAndAfter }) => {
     const baseCls =
         "bg-stone-300 overflow-hidden  relative disabled:bg-stone-500 disabled:opacity-30 min-h-[25vh]";
     const baseBadge =
-        "text-white text-xs font-bold rounded-sm absolute top-1 left-1 px-[.3rem] py-[.2rem] z-100";
+        "text-white text-xs font-bold rounded-sm absolute top-1 left-1 px-[.3rem] py-[.2rem] z-40";
 
     const finalCls = clsx(baseCls, col);
     const currentInput = Math.random();
@@ -58,12 +58,14 @@ const Image = React.memo(({ col, label, showBeforeAndAfter }) => {
                             src={image}
                             ref={imageRef}
                             alt="preview"
-                            className="object-cover object-center size-full  cursor-move z-0 touch-none"
+                            className="absolute top-0 left-0 size-full max-w-none cursor-move z-0 touch-none"
                             onClick={() => setSelectedTarget(imageRef.current)}
                         />
                         <Moveable
                             target={imageRef}
-                            container={document.body}
+                            portalContainer={document.body}
+                            origin={false}
+                            scrollable={true}
                             pinchOutside={true}
                             pinchable={true}
                             draggable={true}
