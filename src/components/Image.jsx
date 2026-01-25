@@ -58,7 +58,8 @@ const Image = React.memo(({ col, label, showBeforeAndAfter }) => {
                             src={image}
                             ref={imageRef}
                             alt="preview"
-                            className="absolute top-0 left-0 size-full max-w-none cursor-move z-0 touch-none"
+                            className="absolute top-0 left-0 max-w-none cursor-move z-0 touch-none"
+                            style={{ width: "100%" }}
                             onClick={() => setSelectedTarget(imageRef.current)}
                         />
                         <Moveable
@@ -84,6 +85,9 @@ const Image = React.memo(({ col, label, showBeforeAndAfter }) => {
                                 target.style.transform = transform;
                             }}
                             onPinch={({ target, transform }) => {
+                                target.style.transform = transform;
+                            }}
+                            onRender={({ target, transform }) => {
                                 target.style.transform = transform;
                             }}
                         />
