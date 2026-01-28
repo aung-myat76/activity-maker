@@ -14,6 +14,9 @@ const appReducer = (state, action) => {
             };
         case "CHANGE_POSITION":
             return { ...state, position: action.payload.position };
+        case "RESET": {
+            return { ...state, layouts };
+        }
         default:
             return state;
     }

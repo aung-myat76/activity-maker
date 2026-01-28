@@ -39,6 +39,10 @@ const Actions = ({ toggleShowTitle, onAddTags, onReversedTags }) => {
         }
     };
 
+    const onReset = () => {
+        console.log("reset");
+    };
+
     return (
         <>
             <div className="flex w-screen items-center justify-center  gap-3 flex-wrap mb-5">
@@ -64,13 +68,16 @@ const Actions = ({ toggleShowTitle, onAddTags, onReversedTags }) => {
                     Title
                 </Button>
 
-                <Button addCls="bg-red-500 text-white" onClick={onAddTags}>
+                <Button addCls="bg-emerald-500 text-white" onClick={onAddTags}>
                     B & A
                 </Button>
                 <Button
                     onClick={onReversedTags}
-                    addCls="bg-emerald-500 text-white">
+                    addCls="bg-yellow-500 text-white">
                     Change
+                </Button>
+                <Button onClick={onReset} addCls="bg-red-500 text-white">
+                    Reset
                 </Button>
                 <Button
                     addCls="bg-blue-500 text-white"
