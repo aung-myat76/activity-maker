@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import clsx from "clsx";
 
 import Image from "./Image";
-import Button from "./Button";
-import Modal from "./Modal";
+
 import { useApp } from "../store/app-context";
 
 const Collage = ({ showTitle, addTags, reversedTags }) => {

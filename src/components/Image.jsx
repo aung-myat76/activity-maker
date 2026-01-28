@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useRef } from "react";
-import Moveable from "react-moveable";
 import { useSpring, animated } from "@react-spring/web";
 import { useGesture } from "@use-gesture/react";
 
@@ -35,7 +34,7 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
         y: 0,
         scale: 1,
         rotate: 0,
-        config: { tension: 200, friction: 25 } // Makes it feel "snappy"
+        config: { tension: 200, friction: 25 }
     }));
     const bind = useGesture(
         {
@@ -92,49 +91,18 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
                             src={image}
                             ref={imageRef}
                             alt="preview"
-                            className="absolute top-0 left-0 max-w-none cursor-move z-0 touch-none"
+                            className="img absolute top-0 left-0 max-w-none cursor-move  touch-none"
                             // className="absolute cursor-move touch-none select-none max-w-none"
                             style={{
                                 x,
                                 y,
                                 scale,
                                 rotate,
-                                width: "100%",
-                                touchAction: "none"
+                                touchAction: "none",
+                                width: "100%"
                             }}
                             onClick={(e) => e.stopPropagation()}
                         />
-                        {/* <Moveable
-                            target={imageRef}
-                            portalContainer={document.body}
-                            origin={false}
-                            scrollable={true}
-                            pinchOutside={true}
-                            pinchable={true}
-                            draggable={true}
-                            resizable={true}
-                            rotatable={true}
-                            snappable={true}
-                            preventClickDefault={true}
-                            pinchThreshold={20}
-                            onDrag={({ target, transform }) => {
-                                target.style.transform = transform;
-                            }}
-                            onResize={({ target, width, height, drag }) => {
-                                target.style.width = width + "px";
-                                target.style.height = height + "px";
-                                target.style.transform = drag.transform;
-                            }}
-                            onRotate={({ target, transform }) => {
-                                target.style.transform = transform;
-                            }}
-                            onPinch={({ target, transform }) => {
-                                target.style.transform = transform;
-                            }}
-                            onRender={({ target, transform }) => {
-                                target.style.transform = transform;
-                            }}
-                        /> */}
                     </div>
                 )}
             </div>

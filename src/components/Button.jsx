@@ -5,7 +5,7 @@ import { twMerge } from "tailwind-merge";
 
 const Button = ({ children, addCls = "", ...othersProps }) => {
     const baseCls =
-        "p-2 m-2 min-w-[4.5rem] bg-stone-300 rounded font-bold cursor-pointer";
+        "py-2 px-3 m-2 bg-stone-900 text-white rounded-md font-bold cursor-pointer";
 
     const finalCls = twMerge(clsx(baseCls, addCls));
     return (

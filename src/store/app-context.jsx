@@ -14,82 +14,11 @@ const appReducer = (state, action) => {
             };
         case "CHANGE_POSITION":
             return { ...state, position: action.payload.position };
-        case "RESET": {
-            return { ...state, layouts };
-        }
+
         default:
             return state;
     }
 };
-
-// const initialState = [{
-//             id: "one",
-//             number: 1,
-//             layout: "grid-cols-1",
-//             images: [null],
-//             default: [
-//                 {
-//                     col: "col-span-full h-[40vh]",
-//                     label: null
-//                 }
-//             ],
-//             changed: [
-//                 {
-//                     col: "col-span-full h-[40vh]",
-//                     label: null
-//                 }
-//             ]
-//         },
-//         {
-//             id: "two",
-//             number: 2,
-//             layout: "grid-cols-2",
-//             images: [null, null],
-//             default: [
-//                 { col: "col-span-full max-h-[30vh]", label: "Before" },
-//                 { col: "col-span-full max-h-[30vh]", label: "After" }
-//             ],
-
-//             changed: [
-//                 { col: "col-span-1 h-[45vh]", label: "Before" },
-//                 { col: "col-span-1 h-[45vh]", label: "After" }
-//             ]
-//         },
-//         {
-//             id: "three",
-//             number: 3,
-//             layout: "grid-cols-2",
-//             images:[null, null, null],
-//             default: [
-//                 { col: "col-span-full max-h-[30vh]", label: "After" },
-//                 { col: "col-span-1", label: "Before" },
-//                 { col: "col-span-1", label: null }
-//             ],
-
-//             changed: [
-//                 { col: "col-span-1", label: "Before" },
-//                 { col: "col-span-1", label: null },
-//                 { col: "col-span-full max-h-[30vh]", label: "After" }
-//             ]
-//         },
-//         {
-//             id: "fourth",
-//             number: 4,
-//             layout: "grid-cols-2",
-//             images: [null, null, null, null],
-//             default: [
-//                 { col: "col-span-1", label: "After" },
-//                 { col: "col-span-1", label: null },
-//                 { col: "col-span-1", label: "Before" },
-//                 { col: "col-span-1", label: null }
-//             ],
-//             changed: [
-//                 { col: "col-span-1", label: "Before" },
-//                 { col: "col-span-1", label: null },
-//                 { col: "col-span-1", label: "After" },
-//                 { col: "col-span-1", label: null }
-//             ]
-//         }]
 
 const layouts = [
     {

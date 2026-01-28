@@ -40,7 +40,14 @@ const Actions = ({ toggleShowTitle, onAddTags, onReversedTags }) => {
     };
 
     const onReset = () => {
-        console.log("reset");
+        if (!confirm("Are you sure to reset?")) {
+            return;
+        }
+
+        const imgs = document.querySelectorAll(".img");
+        imgs.forEach((img) => {
+            img.remove();
+        });
     };
 
     return (
@@ -62,20 +69,20 @@ const Actions = ({ toggleShowTitle, onAddTags, onReversedTags }) => {
                     <option value="P_ONE">Position One</option>
                     <option value="P_Two">Position Two</option>
                 </select>
-                <Button
-                    addCls="bg-yellow-500 text-white"
-                    onClick={toggleShowTitle}>
-                    Title
-                </Button>
+                <Button onClick={toggleShowTitle}>Title</Button>
 
-                <Button addCls="bg-emerald-500 text-white" onClick={onAddTags}>
-                    B & A
-                </Button>
-                <Button
-                    onClick={onReversedTags}
-                    addCls="bg-yellow-500 text-white">
-                    Change
-                </Button>
+                <div className="font-bold text-white">
+                    <span
+                        onClick={onAddTags}
+                        className="p-2 px-3 rounded-tl-md rounded-bl-md bg-emerald-500 ">
+                        B & A
+                    </span>
+                    <span
+                        onClick={onReversedTags}
+                        className="py-2 px-3 rounded-tr-md rounded-br-md bg-yellow-500 ">
+                        ⟳
+                    </span>
+                </div>
                 <Button onClick={onReset} addCls="bg-red-500 text-white">
                     Reset
                 </Button>
