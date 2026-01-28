@@ -1,5 +1,7 @@
 import React, { useState, useCallback, useRef } from "react";
 import Moveable from "react-moveable";
+import { useSpring, animated } from "@react-spring/web";
+import { useGesture } from "@use-gesture/react";
 
 import clsx from "clsx";
 
@@ -27,6 +29,33 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
             reader.readAsDataURL(file);
         }
     }, []);
+
+    const [{ x, y, scale, rotate }, api] = useSpring(() => ({
+        x: 0,
+        y: 0,
+        scale: 1,
+        rotate: 0,
+        config: { tension: 200, friction: 25 } // Makes it feel "snappy"
+    }));
+    const bind = useGesture(
+        {
+            onDrag: ({ offset: [ox, oy] }) => {
+                api.start({ x: ox, y: oy });
+            },
+            onPinch: ({ offset: [d, a] }) => {
+                api.start({ scale: d, rotate: a });
+            }
+        },
+        {
+            drag: {
+                from: () => [x.get(), y.get()]
+            },
+            pinch: {
+                scaleBounds: { min: 0.1, max: 5 },
+                from: () => [scale.get(), rotate.get()]
+            }
+        }
+    );
     return (
         <li className={finalCls}>
             {id === 0 && addTags && !reversedTags && (
@@ -58,14 +87,24 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
                         ref={imageContainerRef}
                         id="image-container"
                         className="relative size-full">
-                        <img
+                        <animated.img
+                            {...bind}
                             src={image}
                             ref={imageRef}
                             alt="preview"
                             className="absolute top-0 left-0 max-w-none cursor-move z-0 touch-none"
-                            style={{ width: "100%" }}
+                            // className="absolute cursor-move touch-none select-none max-w-none"
+                            style={{
+                                x,
+                                y,
+                                scale,
+                                rotate,
+                                width: "100%",
+                                touchAction: "none"
+                            }}
+                            onClick={(e) => e.stopPropagation()}
                         />
-                        <Moveable
+                        {/* <Moveable
                             target={imageRef}
                             portalContainer={document.body}
                             origin={false}
@@ -95,7 +134,7 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
                             onRender={({ target, transform }) => {
                                 target.style.transform = transform;
                             }}
-                        />
+                        /> */}
                     </div>
                 )}
             </div>
