@@ -8,3 +8,7 @@ body {
 .moveable-control-box {
     z-index: 9999 !important;
 }
+
+select {
+    @apply p-2 font-bold rounded-lg bg-stone-900 text-white focus:outline-none;
+}

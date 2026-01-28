@@ -3,9 +3,8 @@ import Moveable from "react-moveable";
 
 import clsx from "clsx";
 
-const Image = React.memo(({ col, label, showBeforeAndAfter }) => {
+const Image = React.memo(({ col, id, addTags, reversedTags }) => {
     const [image, setImage] = useState(null);
-    const [selectedTarget, setSelectedTarget] = useState(null);
     const imageRef = useRef(null);
     const imageContainerRef = useRef(null);
     const baseCls =
@@ -28,14 +27,19 @@ const Image = React.memo(({ col, label, showBeforeAndAfter }) => {
             reader.readAsDataURL(file);
         }
     }, []);
-
     return (
         <li className={finalCls}>
-            {showBeforeAndAfter && label === "Before" && (
+            {id === 0 && addTags && !reversedTags && (
                 <div className={clsx(baseBadge, "bg-red-600")}>Before</div>
             )}
-            {showBeforeAndAfter && label === "After" && (
+            {id === 0 && addTags && reversedTags && (
                 <div className={clsx(baseBadge, "bg-green-600")}>After</div>
+            )}
+            {id === 1 && addTags && !reversedTags && (
+                <div className={clsx(baseBadge, "bg-green-600")}>After</div>
+            )}
+            {id === 1 && addTags && reversedTags && (
+                <div className={clsx(baseBadge, "bg-red-600")}>Before</div>
             )}
 
             <div className="size-full">
@@ -60,7 +64,6 @@ const Image = React.memo(({ col, label, showBeforeAndAfter }) => {
                             alt="preview"
                             className="absolute top-0 left-0 max-w-none cursor-move z-0 touch-none"
                             style={{ width: "100%" }}
-                            onClick={() => setSelectedTarget(imageRef.current)}
                         />
                         <Moveable
                             target={imageRef}
