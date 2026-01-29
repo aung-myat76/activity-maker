@@ -98,7 +98,7 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
                             src={images[id]}
                             ref={imageRef}
                             alt="preview"
-                            className="img absolute h-[125%]  w-[150%]  object-center object-cover select-none    max-w-none cursor-move  touch-none"
+                            className="img absolute h-[125%]  w-[125%]  object-center object-cover select-none    max-w-none cursor-move  touch-none"
                             style={{
                                 x,
                                 y,
