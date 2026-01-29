@@ -8,13 +8,29 @@ const appReducer = (state, action) => {
             return {
                 ...state,
                 currentLayout: action.payload.layout,
-                layoutDesign: layouts.find(
-                    (l) => l.id === action.payload.layout
-                )
+                layoutDesign: {
+                    ...layouts.find((l) => l.id === action.payload.layout),
+                    images: [...state.layoutDesign.images]
+                }
             };
         case "CHANGE_POSITION":
             return { ...state, position: action.payload.position };
-
+        case "ADD_IMAGE":
+            return {
+                ...state,
+                layoutDesign: {
+                    ...state.layoutDesign,
+                    images: [...state.layoutDesign.images, action.payload.image]
+                }
+            };
+        case "RESET":
+            return {
+                ...state,
+                layoutDesign: {
+                    ...state.layoutDesign,
+                    images: []
+                }
+            };
         default:
             return state;
     }
@@ -34,7 +50,7 @@ const layouts = [
             }
         },
 
-        images: [null]
+        images: []
     },
     {
         id: "two",
@@ -48,7 +64,7 @@ const layouts = [
                 children: ["col-span-1", "col-span-1"]
             }
         },
-        images: [null, null]
+        images: []
     },
     {
         id: "three",
@@ -62,7 +78,7 @@ const layouts = [
                 children: ["col-span-1", "col-span-1", "col-span-full"]
             }
         },
-        images: [null, null, null]
+        images: []
     },
     {
         id: "four",
@@ -86,7 +102,7 @@ const layouts = [
                 ]
             }
         },
-        images: [null, null, null, null]
+        images: []
     }
 ];
 
@@ -109,9 +125,20 @@ export const AppContextProvider = ({ children }) => {
         dispatch({ type: "CHANGE_POSITION", payload: { position: position } });
     };
 
+    const addImage = (image) => {
+        dispatch({ type: "ADD_IMAGE", payload: { image: image } });
+    };
+
+    const reset = () => {
+        dispatch({ type: "RESET" });
+    };
+
     const ctxValue = {
         changeLayout,
         changePosition,
+        addImage,
+        reset,
+        images: state.layoutDesign.images,
         currentLayout: state.currentLayout,
         layoutDesign: state.layoutDesign,
         position: state.position

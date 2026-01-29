@@ -3,11 +3,13 @@ import { useSpring, animated } from "@react-spring/web";
 import { useGesture } from "@use-gesture/react";
 
 import clsx from "clsx";
+import { useApp } from "../store/app-context";
 
 const Image = React.memo(({ col, id, addTags, reversedTags }) => {
     const [image, setImage] = useState(null);
     const imageRef = useRef(null);
     const imageContainerRef = useRef(null);
+    const { addImage } = useApp();
     const baseCls =
         "bg-stone-300 overflow-hidden  relative disabled:bg-stone-500 disabled:opacity-30 min-h-[25vh]";
     const baseBadge =
@@ -24,6 +26,7 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
             reader.onload = () => {
                 const dImage = reader.result;
                 setImage(dImage);
+                addImage(dImage);
             };
             reader.readAsDataURL(file);
         }
@@ -91,15 +94,13 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
                             src={image}
                             ref={imageRef}
                             alt="preview"
-                            className="img absolute top-0 left-0 max-w-none cursor-move  touch-none"
+                            className="img absolute size-full  object-fill  select-none    max-w-none cursor-move  touch-none"
                             // className="absolute cursor-move touch-none select-none max-w-none"
                             style={{
                                 x,
                                 y,
                                 scale,
-                                rotate,
-                                touchAction: "none",
-                                width: "100%"
+                                rotate
                             }}
                             onClick={(e) => e.stopPropagation()}
                         />

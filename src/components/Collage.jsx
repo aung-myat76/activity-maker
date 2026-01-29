@@ -9,7 +9,7 @@ import { useApp } from "../store/app-context";
 const Collage = ({ showTitle, addTags, reversedTags }) => {
     const [title, setTitle] = useState("Title");
     const { layoutDesign, position } = useApp();
-
+    console.log(layoutDesign);
     const baseCls = `bg-stone-100 h-[50vh] relative grid gap-1 size-full overflow-hidden`;
 
     const finalCls = clsx(
@@ -23,7 +23,7 @@ const Collage = ({ showTitle, addTags, reversedTags }) => {
         <div className="flex flex-col items-center justify-center gap-1">
             <div
                 id="collage"
-                className=" flex flex-col items-center justify-center w-[100vw] mx-auto p-2 bg-white">
+                className=" flex flex-col items-center justify-center w-[100vw] mx-auto p-5 bg-white">
                 <div className="w-full">
                     {showTitle ? (
                         <input
@@ -34,7 +34,7 @@ const Collage = ({ showTitle, addTags, reversedTags }) => {
                     ) : null}
                 </div>
                 <ul className={finalCls}>
-                    {layoutDesign.images.map((img, i) => {
+                    {layoutDesign.grid.pOne.children.map((cls, i) => {
                         return (
                             <Image
                                 key={i}
