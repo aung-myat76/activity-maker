@@ -44,6 +44,7 @@ const Actions = ({ toggleShowTitle, onAddTags, onReversedTags }) => {
         if (!confirm("Are you sure to reset?")) {
             return;
         }
+        reset();
     };
 
     return (
@@ -79,7 +80,7 @@ const Actions = ({ toggleShowTitle, onAddTags, onReversedTags }) => {
                         ⟳
                     </span>
                 </div>
-                <Button onClick={reset} addCls="bg-red-500 text-white">
+                <Button onClick={onReset} addCls="bg-red-500 text-white">
                     Reset
                 </Button>
                 <Button

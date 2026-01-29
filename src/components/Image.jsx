@@ -6,10 +6,10 @@ import clsx from "clsx";
 import { useApp } from "../store/app-context";
 
 const Image = React.memo(({ col, id, addTags, reversedTags }) => {
-    const [image, setImage] = useState(null);
+    // const [image, setImage] = useState(null);
     const imageRef = useRef(null);
     const imageContainerRef = useRef(null);
-    const { addImage } = useApp();
+    const { addImage, images } = useApp();
     const baseCls =
         "bg-stone-300 overflow-hidden  relative disabled:bg-stone-500 disabled:opacity-30 min-h-[25vh]";
     const baseBadge =
@@ -18,19 +18,22 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
     const finalCls = clsx(baseCls, col);
     const currentInput = Math.random();
 
-    const handleImagePick = useCallback((e) => {
-        const file = e.target.files[0];
+    const handleImagePick = useCallback(
+        (e) => {
+            const file = e.target.files[0];
 
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = () => {
-                const dImage = reader.result;
-                setImage(dImage);
-                addImage(dImage);
-            };
-            reader.readAsDataURL(file);
-        }
-    }, []);
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const dImage = reader.result;
+                    // setImage(dImage);
+                    addImage(dImage);
+                };
+                reader.readAsDataURL(file);
+            }
+        },
+        [addImage]
+    );
 
     const [{ x, y, scale, rotate }, api] = useSpring(() => ({
         x: 0,
@@ -84,18 +87,17 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
                     onChange={(e) => handleImagePick(e)}
                     className="hidden object-cover"
                 />
-                {image && (
+                {images[id] && (
                     <div
                         ref={imageContainerRef}
                         id="image-container"
                         className="relative size-full">
                         <animated.img
                             {...bind()}
-                            src={image}
+                            src={images[id]}
                             ref={imageRef}
                             alt="preview"
-                            className="img absolute size-full  object-fill  select-none    max-w-none cursor-move  touch-none"
-                            // className="absolute cursor-move touch-none select-none max-w-none"
+                            className="img absolute  size-full object-center object-cover  select-none    max-w-none cursor-move  touch-none"
                             style={{
                                 x,
                                 y,

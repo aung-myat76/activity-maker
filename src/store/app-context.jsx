@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useCallback, useContext, useReducer } from "react";
 
 const appContext = createContext({});
 
@@ -125,9 +125,9 @@ export const AppContextProvider = ({ children }) => {
         dispatch({ type: "CHANGE_POSITION", payload: { position: position } });
     };
 
-    const addImage = (image) => {
+    const addImage = useCallback((image) => {
         dispatch({ type: "ADD_IMAGE", payload: { image: image } });
-    };
+    }, []);
 
     const reset = () => {
         dispatch({ type: "RESET" });
