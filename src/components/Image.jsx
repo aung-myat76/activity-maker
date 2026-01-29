@@ -92,13 +92,13 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
                     <div
                         ref={imageContainerRef}
                         id="image-container"
-                        className="relative size-full overflow-visible">
+                        className="relative size-full overflow-visible flex justify-center items-center">
                         <animated.img
                             {...bind()}
                             src={images[id]}
                             ref={imageRef}
                             alt="preview"
-                            className="img absolute h-[150%] w-screen object-center object-cover select-none    max-w-none cursor-move  touch-none"
+                            className="img absolute h-full  w-screen  object-center object-cover select-none    max-w-none cursor-move  touch-none"
                             style={{
                                 x,
                                 y,
