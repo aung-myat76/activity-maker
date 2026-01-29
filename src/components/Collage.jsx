@@ -10,7 +10,7 @@ const Collage = ({ showTitle, addTags, reversedTags }) => {
     const [title, setTitle] = useState("Title");
     const { layoutDesign, position } = useApp();
     console.log(layoutDesign);
-    const baseCls = `bg-stone-100 h-[50vh] relative grid gap-1 size-full overflow-hidden`;
+    const baseCls = `bg-stone-100 h-[70vh] relative grid gap-1 size-full overflow-hidden`;
 
     const finalCls = clsx(
         baseCls,
@@ -20,10 +20,10 @@ const Collage = ({ showTitle, addTags, reversedTags }) => {
     );
 
     return (
-        <div className="flex flex-col items-center justify-center gap-1">
+        <div className="flex flex-col items-center justify-center gap-1 ">
             <div
                 id="collage"
-                className=" flex flex-col items-center justify-center w-[100vw] mx-auto p-5 bg-white">
+                className=" flex flex-col items-center justify-center w-[100vw] mx-auto p-5 bg-white md:w-[75vw]">
                 <div className="w-full">
                     {showTitle ? (
                         <input
