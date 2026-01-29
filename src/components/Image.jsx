@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { useSpring, animated } from "@react-spring/web";
 import { useGesture } from "@use-gesture/react";
 
@@ -11,7 +11,7 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
     const imageContainerRef = useRef(null);
     const { addImage, images } = useApp();
     const baseCls =
-        "bg-stone-300 overflow-hidden  relative disabled:bg-stone-500 disabled:opacity-30 min-h-[25vh]";
+        "bg-stone-300 overflow-hidden relative disabled:bg-stone-500 disabled:opacity-30 min-h-[25vh]";
     const baseBadge =
         "text-white text-xs font-bold rounded-sm absolute top-1 left-1 px-[.3rem] py-[.2rem] z-40";
 
@@ -61,6 +61,7 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
             }
         }
     );
+
     return (
         <li className={finalCls}>
             {id === 0 && addTags && !reversedTags && (
@@ -91,13 +92,13 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
                     <div
                         ref={imageContainerRef}
                         id="image-container"
-                        className="relative size-full">
+                        className="relative size-full overflow-visible">
                         <animated.img
                             {...bind()}
                             src={images[id]}
                             ref={imageRef}
                             alt="preview"
-                            className="img absolute  size-full object-center object-cover  select-none    max-w-none cursor-move  touch-none"
+                            className="img absolute h-full w-screen object-center object-cover select-none    max-w-none cursor-move  touch-none"
                             style={{
                                 x,
                                 y,
