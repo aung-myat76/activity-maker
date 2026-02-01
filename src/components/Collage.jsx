@@ -23,11 +23,11 @@ const Collage = ({ showTitle, addTags, reversedTags }) => {
         <div className="flex flex-col items-center justify-center gap-1 ">
             <div
                 id="collage"
-                className=" flex flex-col items-center justify-center w-[100vw] mx-auto p-5 bg-white md:w-[75vw]">
+                className=" flex flex-col items-center justify-center w-[100vw] mx-auto p-3 bg-white md:w-[75vw]">
                 <div className="w-full">
                     {showTitle ? (
                         <input
-                            className="my-3 text-center w-full border-b-2 font-bold text-sm border-stone-900 focus:outline-none p-2"
+                            className="mb-3 text-center w-full border-b-2 font-bold text-sm border-stone-900 focus:outline-none"
                             onChange={(e) => setTitle(e.target.value)}
                             value={title}
                         />
