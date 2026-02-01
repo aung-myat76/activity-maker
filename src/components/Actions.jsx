@@ -3,7 +3,6 @@ import { toPng } from "html-to-image";
 
 import { useApp } from "../store/app-context";
 import Button from "./Button";
-import Moveable from "react-moveable";
 
 const Actions = ({ toggleShowTitle, onAddTags, onReversedTags }) => {
     const { changeLayout, changePosition, position, currentLayout, reset } =
@@ -80,9 +79,10 @@ const Actions = ({ toggleShowTitle, onAddTags, onReversedTags }) => {
                         ⟳
                     </span>
                 </div>
-                <Button onClick={onReset} addCls="bg-red-500 text-white">
+
+                {/* <Button onClick={onReset} addCls="bg-red-500 text-white">
                     Reset
-                </Button>
+                </Button> */}
                 <Button
                     addCls="bg-blue-500 text-white"
                     onClick={handleImgDownload}>

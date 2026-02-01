@@ -23,6 +23,18 @@ const appReducer = (state, action) => {
                     images: [...state.layoutDesign.images, action.payload.image]
                 }
             };
+        case "REPLACE_IMAGE": {
+            const images = [...state.layoutDesign.images];
+            images[action.payload.id] = action.payload.image;
+
+            return {
+                ...state,
+                layoutDesign: {
+                    ...state.layoutDesign,
+                    images: images
+                }
+            };
+        }
         case "RESET":
             return {
                 ...state,
@@ -129,6 +141,10 @@ export const AppContextProvider = ({ children }) => {
         dispatch({ type: "ADD_IMAGE", payload: { image: image } });
     }, []);
 
+    const replaceImage = useCallback((id, image) => {
+        dispatch({ type: "REPLACE_IMAGE", payload: { id: id, image: image } });
+    }, []);
+
     const reset = () => {
         dispatch({ type: "RESET" });
     };
@@ -137,6 +153,7 @@ export const AppContextProvider = ({ children }) => {
         changeLayout,
         changePosition,
         addImage,
+        replaceImage,
         reset,
         images: state.layoutDesign.images,
         currentLayout: state.currentLayout,

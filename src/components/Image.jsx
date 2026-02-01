@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { useSpring, animated } from "@react-spring/web";
 import { useGesture } from "@use-gesture/react";
 
@@ -6,10 +6,10 @@ import clsx from "clsx";
 import { useApp } from "../store/app-context";
 
 const Image = React.memo(({ col, id, addTags, reversedTags }) => {
-    // const [image, setImage] = useState(null);
+    const [image, setImage] = useState(null);
     const imageRef = useRef(null);
     const imageContainerRef = useRef(null);
-    const { addImage, images } = useApp();
+    const { addImage } = useApp();
     const baseCls =
         "bg-stone-300 overflow-hidden relative disabled:bg-stone-500 disabled:opacity-30 min-h-[25vh] md:min-h-[35vh]";
     const baseBadge =
@@ -26,7 +26,7 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
                 const reader = new FileReader();
                 reader.onload = () => {
                     const dImage = reader.result;
-                    // setImage(dImage);
+                    setImage(dImage);
                     addImage(dImage);
                 };
                 reader.readAsDataURL(file);
@@ -80,7 +80,7 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
             <div className="size-full">
                 <label
                     htmlFor={currentInput}
-                    className="absolute inset-0"></label>
+                    className="absolute inset-0 z-50"></label>
                 <input
                     type="file"
                     id={currentInput}
@@ -88,24 +88,26 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
                     onChange={(e) => handleImagePick(e)}
                     className="hidden object-cover"
                 />
-                {images[id] && (
+                {image && (
                     <div
                         ref={imageContainerRef}
                         id="image-container"
                         className="relative size-full overflow-visible flex justify-center items-center">
                         <animated.img
                             {...bind()}
-                            src={images[id]}
+                            src={image}
                             ref={imageRef}
                             alt="preview"
-                            className="img absolute h-[110%] w-screen object-cover select-none    max-w-none cursor-move  touch-none"
+                            className="img absolute h-[110%] w-screen object-cover select-none max-w-none cursor-move  touch-none"
                             style={{
                                 x,
                                 y,
                                 scale,
                                 rotate
                             }}
-                            onClick={(e) => e.stopPropagation()}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                            }}
                         />
                     </div>
                 )}
