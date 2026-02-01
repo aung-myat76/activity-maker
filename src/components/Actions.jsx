@@ -20,7 +20,7 @@ const Actions = ({ toggleShowTitle, onAddTags, onReversedTags }) => {
                 filter: (node) => {
                     if (
                         node.classList &&
-                        node.classList.contains("moveable-control-box")
+                        node.classList.contains("imageLabel")
                     ) {
                         return false;
                     }

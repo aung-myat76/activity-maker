@@ -80,7 +80,9 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
             <div className="size-full">
                 <label
                     htmlFor={currentInput}
-                    className="absolute inset-0 z-50"></label>
+                    className="imageLabel absolute top-1 right-1 z-50 bg-blue-500 text-white rounded-md px-3">
+                    Photo
+                </label>
                 <input
                     type="file"
                     id={currentInput}
