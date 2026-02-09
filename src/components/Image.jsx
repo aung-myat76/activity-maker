@@ -11,7 +11,7 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
     const imageContainerRef = useRef(null);
     const { addImage } = useApp();
     const baseCls =
-        "bg-stone-300 overflow-hidden relative disabled:bg-stone-500 disabled:opacity-30 min-h-[25vh] md:min-h-[35vh]";
+        "bg-stone-300 imageSize overflow-hidden relative disabled:bg-stone-500 disabled:opacity-30 ";
     const baseBadge =
         "text-white text-xs font-bold rounded-sm absolute top-1 left-1 px-[.3rem] py-[.2rem] z-40";
 
