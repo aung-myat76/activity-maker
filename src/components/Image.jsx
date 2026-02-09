@@ -5,6 +5,8 @@ import { useGesture } from "@use-gesture/react";
 import clsx from "clsx";
 import { useApp } from "../store/app-context";
 
+const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
 const Image = React.memo(({ col, id, addTags, reversedTags }) => {
     const [image, setImage] = useState(null);
     const imageRef = useRef(null);
@@ -45,7 +47,19 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
     const bind = useGesture(
         {
             onDrag: ({ offset: [ox, oy] }) => {
-                api.start({ x: ox, y: oy });
+                const container =
+                    imageContainerRef.current?.getBoundingClientRect();
+                const img = imageRef.current?.getBoundingClientRect();
+
+                if (!container || !img) return;
+
+                const limitX = Math.max(0, (img.width - container.width) / 2);
+                const limitY = Math.max(0, (img.height - container.height) / 2);
+
+                const xBound = clamp(ox, -limitX, limitX);
+                const yBound = clamp(oy, -limitY, limitY);
+
+                api.start({ x: xBound, y: yBound });
             },
             onPinch: ({ offset: [d, a] }) => {
                 api.start({ scale: d, rotate: a });
@@ -53,10 +67,11 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
         },
         {
             drag: {
-                from: () => [x.get(), y.get()]
+                from: () => [x.get(), y.get()],
+                filterTaps: true
             },
             pinch: {
-                scaleBounds: { min: 0.1, max: 5 },
+                scaleBounds: { min: 1, max: 5 },
                 from: () => [scale.get(), rotate.get()]
             }
         }
@@ -100,7 +115,7 @@ const Image = React.memo(({ col, id, addTags, reversedTags }) => {
                             src={image}
                             ref={imageRef}
                             alt="preview"
-                            className="img absolute h-[110%] w-screen object-cover select-none max-w-none cursor-move  touch-none"
+                            className="img absolute size-full object-cover select-none max-w-none cursor-move  touch-none"
                             style={{
                                 x,
                                 y,
