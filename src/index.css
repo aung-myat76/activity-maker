@@ -10,7 +10,7 @@ select {
 }
 
 .collageSize {
-    @apply w-12/12 h-96;
+    @apply w-12/12 h-1/3;
 }
 
 .imageSize {
